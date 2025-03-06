@@ -181,7 +181,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:4000/auth/register',
+        'https://recipe-app-4kos.onrender.com/auth/register',
         { username, email, password },
         { headers: { 'Content-Type': 'application/json' } }
       );

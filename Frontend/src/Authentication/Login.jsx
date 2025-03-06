@@ -178,7 +178,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:4000/auth/login',
+        'https://recipe-app-4kos.onrender.com/auth/login',
         { email, password },
         { headers: { 'Content-Type': 'application/json' } }
       );

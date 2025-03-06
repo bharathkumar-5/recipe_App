@@ -14,7 +14,7 @@ app.use('/auth' , authRoute )
 
 
 
-app.listen(process.env.PORT , ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log(`server is start on PORT ${process.env.PORT}`)
     connectDB()
 })
