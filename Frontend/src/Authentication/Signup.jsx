@@ -175,10 +175,13 @@ const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
+
     try {
       const response = await axios.post(
         'https://recipe-app-4kos.onrender.com/auth/register',
@@ -186,15 +189,19 @@ const Signup = () => {
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      console.log('Signup Success:', response.data);
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      alert('Signup successful! Redirecting to login.');
-      navigate('/login');
+      if (response.data && response.data.success) {
+        console.log('Signup Success:', response.data);
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        alert('Signup successful! Redirecting to login.');
+        navigate('/login');
+      } else {
+        setErrorMessage(response.data.message || 'Signup failed. Please try again.');
+      }
     } catch (error) {
       console.error('Signup Error:', error.response?.data || error.message);
-      alert(error.response?.data?.message || 'Something went wrong');
+      setErrorMessage(error.response?.data?.message || 'Something went wrong');
     }
   };
 
@@ -202,6 +209,7 @@ const Signup = () => {
     <div className='login_body'>
       <div className='container_login'>
         <h2>Signup</h2>
+        {errorMessage && <p className='error_message'>{errorMessage}</p>}
         <form onSubmit={handleSubmit} className='login-form'>
           <input
             type='text'
@@ -244,4 +252,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;  // ✅ Fix export statement
+export default Signup;
