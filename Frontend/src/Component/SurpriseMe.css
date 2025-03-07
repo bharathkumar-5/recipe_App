@@ -1,0 +1,137 @@
+.surprise-me-container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  
+  .surprise-me-button {
+    padding: 1rem 2rem;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .surprise-me-button:hover {
+    background: #6d28d9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .random-recipe-details {
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease;
+  }
+  
+  .random-recipe-details h3 {
+    font-size: 1.8rem;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .random-recipe-details img {
+    width: 100%;
+    max-width: 400px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: block;
+  }
+  
+  .random-recipe-details p {
+    font-size: 1rem;
+    color: #4b5563;
+    margin: 0.8rem 0;
+    line-height: 1.5;
+  }
+  
+  .random-recipe-details p strong {
+    color: #1f2937;
+    font-weight: 600;
+  }
+  
+  .random-recipe-details button {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    display: inline-block;
+  }
+  
+  .random-recipe-details button:hover {
+    background: #6d28d9;
+    transform: translateY(-2px);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .surprise-me-container {
+      padding: 1.5rem;
+    }
+  
+    .random-recipe-details {
+      padding: 1.5rem;
+      margin: 1.5rem auto;
+    }
+  
+    .random-recipe-details h3 {
+      font-size: 1.5rem;
+    }
+  
+    .random-recipe-details img {
+      height: 200px;
+      max-width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .surprise-me-button {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+    }
+  
+    .random-recipe-details {
+      padding: 1rem;
+    }
+  
+    .random-recipe-details img {
+      height: 180px;
+    }
+  
+    .random-recipe-details button {
+      width: 100%;
+    }
+  }

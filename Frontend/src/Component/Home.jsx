@@ -1,15 +1,16 @@
-import  { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/Home.css";
 import { motion } from "framer-motion";
-import { FaShoppingCart, FaSearch, FaHeart } from "react-icons/fa";
+import { FaShoppingCart, FaSearch, FaHeart, FaSort } from "react-icons/fa";
 
 export const Home = () => {
   const [recipe, setRecipe] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [search, setSearch] = useState("");
   const [cart, setCart] = useState([]);
-  const navigate = useNavigate(); // ✅ Added useNavigate
+  const [sortBy, setSortBy] = useState("name"); // Default sorting by name
+  const navigate = useNavigate();
 
   useEffect(() => {
     FetchData();
@@ -40,6 +41,23 @@ export const Home = () => {
     }
   }, [search, recipe]);
 
+  useEffect(() => {
+    // Sort recipes whenever sortBy changes
+    const sortedRecipes = [...filteredRecipes].sort((a, b) => {
+      if (sortBy === "name") {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === "price") {
+        return a.caloriesPerServing - b.caloriesPerServing;
+      } else if (sortBy === "rating") {
+        return b.rating - a.rating; // Sort by rating (descending)
+      } else if (sortBy === "cuisine") {
+        return a.cuisine.localeCompare(b.cuisine);
+      }
+      return 0;
+    });
+    setFilteredRecipes(sortedRecipes);
+  }, [sortBy]);
+
   function loadCartFromLocalStorage() {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(storedCart);
@@ -59,18 +77,37 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-300 py-12 px-8 md:px-20 lg:px-32">
-      <div className="flex justify-center mb-10">
+      {/* Search and Sort Container */}
+      <div className="flex justify-center items-center mb-10 space-x-4">
+        {/* Search Bar */}
         <div className="relative w-full md:w-2/3 lg:w-1/2">
           <input
             type="text"
             placeholder="Search recipes..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="search-input"
+            className="search-input pl-10" // Add padding for the icon
           />
           <FaSearch className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-500 text-xl" />
         </div>
+
+        {/* Sort Dropdown */}
+        <div className="relative">
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-select pl-10" // Add padding for the icon
+          >
+            <option value="name">Sort by Name</option>
+            <option value="price">Sort by Price</option>
+            <option value="rating">Sort by Rating</option>
+            <option value="cuisine">Sort by Cuisine</option>
+          </select>
+          <FaSort className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-xl pointer-events-none" />
+        </div>
       </div>
+
+      {/* Recipe Grid */}
       <motion.div
         className="recipe-grid"
         initial={{ opacity: 0 }}
@@ -104,7 +141,7 @@ export const Home = () => {
                 </button>
                 <button
                   className="btn btn-primary"
-                  onClick={() => navigate(`/recipe/${item.id}`)} // ✅ Navigate to details page
+                  onClick={() => navigate(`/recipe/${item.id}`)}
                 >
                   <FaShoppingCart className="mr-1 text-lg" /> Details
                 </button>
