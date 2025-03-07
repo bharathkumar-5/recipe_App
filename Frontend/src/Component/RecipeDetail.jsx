@@ -10,7 +10,7 @@ export const RecipeDetail = () => {
   useEffect(() => {
     async function fetchRecipeDetails() {
       try {
-        let res = await fetch("http://localhost:4000/auth/Data");
+        let res = await fetch("https://recipe-app-4kos.onrender.com/auth/Data");
         let data = await res.json();
         const selectedRecipe = data.recipes.find((item) => item.id === parseInt(id));
 
